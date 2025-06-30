@@ -20,7 +20,7 @@ const Login = () => {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:3000/auth/login", formData);
+      const res = await axios.post("https://ai-agents-backend-7u93.onrender.com/auth/login", formData);
       localStorage.setItem("token", res.data.token);
       await fetchUser();
       navigate("/dashboard");

@@ -14,7 +14,7 @@ const ForgotPassword = () => {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:3000/auth/forgot-password", { email });
+      const res = await axios.post("https://ai-agents-backend-7u93.onrender.com/auth/forgot-password", { email });
       setMessage(res.data.message);
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");

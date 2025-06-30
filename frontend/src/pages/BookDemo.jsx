@@ -26,7 +26,7 @@ const BookDemo = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem("token");
-      await axios.post("http://localhost:3000/api/book", formData, {
+      await axios.post("https://ai-agents-backend-7u93.onrender.com/api/book", formData, {
         headers: {
           Authorization: `Bearer ${token}`
         }

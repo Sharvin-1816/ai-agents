@@ -16,7 +16,7 @@ const ResetPassword = () => {
     setError("");
 
     try {
-      const res = await axios.post(`http://localhost:3000/auth/reset-password/${token}`, { newPassword });
+      const res = await axios.post(`https://ai-agents-backend-7u93.onrender.com/auth/reset-password/${token}`, { newPassword });
       setMessage(res.data.message);
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {

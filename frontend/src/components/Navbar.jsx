@@ -14,7 +14,7 @@ const Navbar = () => {
       const token = localStorage.getItem("token");
       if (!token) return;
       try {
-        const res = await axios.get("/auth/me", {
+        const res = await axios.get("https://ai-agents-backend-7u93.onrender.com/auth/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(res.data);
