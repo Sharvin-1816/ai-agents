@@ -5,6 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 const BookDemo = () => {
   const { user } = useContext(AuthContext);
+  const [loading,setLoading] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -22,6 +23,7 @@ const BookDemo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const token = localStorage.getItem("token");
       await axios.post("http://localhost:3000/api/book", formData, {
@@ -30,10 +32,12 @@ const BookDemo = () => {
         }
       });
       setMessage("✅ Demo request sent successfully!");
+      setLoading(false);
       setFormData({ name: "", email: "", phone: "" });
     } catch (err) {
       console.error(err);
       setMessage("❌ Failed to send demo request.");
+      setLoading(false);
     }
   };
 
@@ -83,12 +87,15 @@ const BookDemo = () => {
             placeholder="Phone"
             value={formData.phone}
             onChange={handleChange}
+            minLength="10"
+            maxLength="10"
             required
             className="w-full p-3 rounded-md bg-[#2a2a2a] border border-gray-600 focus:outline-none"
           />
 
           <button
             type="submit"
+            disabled = {loading}
             className="w-full bg-purple-600 hover:bg-purple-700 transition py-3 rounded-md font-semibold"
           >
             Submit
