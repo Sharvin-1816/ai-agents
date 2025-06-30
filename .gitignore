@@ -1,0 +1,14 @@
+# Root .gitignore
+
+# Node backend
+node_modules/
+backend/.env
+
+# React frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+
+# OS/System files
+.DS_Store
+.env
