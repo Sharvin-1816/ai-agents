@@ -36,9 +36,17 @@ const Navbar = () => {
     <nav className="fixed w-full bg-[#0e0e0e] z-50 text-white px-6 lg:px-16 py-4 shadow-md">
   <div className="max-w-7xl mx-auto flex items-center justify-between">
     {/* Logo */}
-    <Link to="/" className="text-purple-500 text-2xl font-extrabold">
-      TechfluxAi
-    </Link>
+    <Link
+  to="/"
+  className="flex items-center gap-2 text-purple-500 text-xl md:text-2xl font-extrabold"
+>
+  <img
+    src="/logo.jpg"
+    alt="TechfluxAI Logo"
+    className="h-6 w-6 md:h-8 md:w-8 object-contain rounded-full"
+  />
+  TechfluxAi
+</Link>
 
     {/* Nav Links - Centered */}
     <div className="hidden md:flex items-center gap-8 text-sm md:text-base">
