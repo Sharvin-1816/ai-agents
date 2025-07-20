@@ -68,7 +68,7 @@ function Home() {
             },
             {
               title: "High Engagement Rate",
-              desc: "Achieve up to 30% response rate with Ringg AI.",
+              desc: "Achieve up to 30% response rate with Techflux AI.",
               icon: "📈",
             },
           ].map((card, i) => (
@@ -105,12 +105,38 @@ function Home() {
             Available <span className="text-green-400 font-semibold">24x7</span>
           </p>
 
-          <div className="bg-[#1f1f1f] w-fit mx-auto py-3 px-6 rounded-full flex items-center gap-4 shadow-lg border border-purple-800">
+          {/* <div className="bg-[#1f1f1f] w-fit mx-auto py-3 px-6 rounded-full flex items-center gap-4 shadow-lg border border-purple-800">
             <span className="text-purple-400 font-bold">TechfluxAi</span>
             <span className="text-sm text-gray-300">Incoming Call</span>
             <button className="bg-red-600 w-8 h-8 rounded-full flex items-center justify-center text-white">📴</button>
             <button className="bg-green-600 w-8 h-8 rounded-full flex items-center justify-center text-white">📞</button>
-          </div>
+          </div> */}
+          <div className="bg-[#1f1f1f] w-fit mx-auto py-3 px-6 rounded-full flex items-center gap-4 shadow-lg border border-purple-800">
+  <span className="text-purple-400 font-bold text-lg">TechfluxAi</span>
+  <span className="text-sm text-gray-300">Incoming Call</span>
+
+  {/* Hang Up Button */}
+  <button
+    className="bg-red-600 w-8 h-8 rounded-full flex items-center justify-center text-white hover:bg-red-700 transition"
+    aria-label="Hang up"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+
+  {/* Answer Button */}
+  <button
+    className="bg-green-600 w-8 h-8 rounded-full flex items-center justify-center text-white hover:bg-green-700 transition"
+    aria-label="Answer"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5l7 7-7 7M8 5l7 7-7 7" />
+    </svg>
+  </button>
+</div>
+
+
         </div>
       </section>
 
