@@ -65,20 +65,26 @@ export default function Dashboard() {
         className="sticky top-0 h-svh w-16 md:w-60 border-r border-zinc-800 bg-zinc-950 p-2 md:p-3 flex flex-col gap-2"
         aria-label="Sidebar navigation"
       >
-        <div className="flex items-center gap-2 px-2 py-2 font-semibold rounded-md justify-center md:justify-start">
-          <Gauge size={18} className="text-violet-400" />
-          <span className="hidden md:inline">TechFlux.ai</span>
+        <div 
+        onClick={() => window.location.href = '/'}
+        className="flex items-center gap-2 px-2 py-2 font-semibold rounded-md justify-center md:justify-start hover:bg-zinc-800 transition-colors cursor-pointer"
+        >
+        <img 
+            src="/public/logo-trans.png" 
+            alt="TechFlux.ai logo" 
+            className="w-[18px] h-[18px]"
+        />
+        <span className="hidden md:inline">TechFlux.ai</span>
         </div>
         <nav className="flex flex-col gap-1 mt-1">
-          <NavItem icon={<Gauge size={18} />} label="Dashboard" to="/dashboard" active/>
-          <NavItem icon={<PlusSquare size={18} />} label="Create agents" to="/createagent" />
+        <NavItem icon={<Gauge size={18} />} label="Dashboard" to="/dashboard" active/>
+        <NavItem icon={<PlusSquare size={18} />} label="Create agents" to="/createagent" />
           <NavItem icon={<Settings size={18} />} label="Configure Agent" to="/configagent"/>
-          <NavItem icon={<Phone size={18} />} label="My numbers" />
-          <NavItem icon={<Building2 size={18} />} label="Batches" />
-          <NavItem icon={<History size={18} />} label="Call History" />
-          <NavItem icon={<Workflow size={18} />} label="Workflows" />
-          <NavItem icon={<Megaphone size={18} />} label="Campaigns" />
-          <NavItem icon={<Building2 size={18} />} label="Workplace" />
+          <NavItem icon={<Phone size={18} />} label="My numbers" to="/mynumbers" />
+          <NavItem icon={<Building2 size={18} />} label="Batches" to="/batches" />
+          <NavItem icon={<History size={18} />} label="Call History" to="/callhistory" />
+          <NavItem icon={<Workflow size={18} />} label="Workflows" to="/workflows"/>
+          <NavItem icon={<Megaphone size={18} />} label="Campaigns" to="/campaigns" />
         </nav>
       </aside>
 

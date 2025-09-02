@@ -12,6 +12,11 @@ import FAQ from "./pages/FAQ";
 import Dashboard from "./pages/Dashboard";
 import CreateAgent from "./pages/CreateAgent";
 import ConfigAgent from "./pages/ConfigAgent";
+import MyNumbers from "./pages/MyNumbers";
+import Batches from "./pages/Batches";
+import AgentConversations from "./pages/CallHistory";
+import Workflows from "./pages/Workflows";
+import CampaignsPage from "./pages/Campaigns";
 
 // Layout for main site pages
 function MainLayout({ children }) {
@@ -43,6 +48,11 @@ function App() {
         <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
         <Route path="/createagent" element={<DashboardLayout><CreateAgent /></DashboardLayout>} />
         <Route path="/configagent" element={<DashboardLayout><ConfigAgent /></DashboardLayout>} />
+        <Route path="/mynumbers" element={<DashboardLayout><MyNumbers /></DashboardLayout>} />
+        <Route path="/batches" element={<DashboardLayout><Batches /></DashboardLayout>} />
+        <Route path="/callhistory" element={<DashboardLayout><AgentConversations /></DashboardLayout>} />
+        <Route path="/workflows" element={<DashboardLayout><Workflows /></DashboardLayout>} />
+        <Route path="/campaigns" element={<DashboardLayout><CampaignsPage /></DashboardLayout>} />
       </Routes>
     </BrowserRouter>
   );

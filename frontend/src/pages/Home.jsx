@@ -133,8 +133,8 @@ function Home() {
             // Spread words around the center in a circular pattern
             const angle = (i / denseWords.length) * Math.PI * 2;
             const radius = 200 + (i % 3) * 100;
-            const centerX = 50;
-            const centerY = 50;
+            const centerX = 45;
+            const centerY = 45;
             
             const x = centerX + (Math.cos(angle) * radius) / window.innerWidth * 100;
             const y = centerY + (Math.sin(angle) * radius) / window.innerHeight * 100;
