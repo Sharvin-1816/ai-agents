@@ -17,6 +17,7 @@ import Batches from "./pages/Batches";
 import AgentConversations from "./pages/CallHistory";
 import Workflows from "./pages/Workflows";
 import CampaignsPage from "./pages/Campaigns";
+import KnowledgeBase from "./pages/KnowledgeBase";
 
 // Layout for main site pages
 function MainLayout({ children }) {
@@ -53,6 +54,7 @@ function App() {
         <Route path="/callhistory" element={<DashboardLayout><AgentConversations /></DashboardLayout>} />
         <Route path="/workflows" element={<DashboardLayout><Workflows /></DashboardLayout>} />
         <Route path="/campaigns" element={<DashboardLayout><CampaignsPage /></DashboardLayout>} />
+        <Route path="/knowledgebase" element={<DashboardLayout><KnowledgeBase /></DashboardLayout>} />
       </Routes>
     </BrowserRouter>
   );

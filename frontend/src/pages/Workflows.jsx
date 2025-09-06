@@ -136,6 +136,7 @@ export default function Workflows() {
         <NavItem icon={<Gauge size={18} />} label="Dashboard" to="/dashboard"/>
         <NavItem icon={<PlusSquare size={18} />} label="Create agents" to="/createagent" />
           <NavItem icon={<Settings size={18} />} label="Configure Agent" to="/configagent"/>
+          <NavItem icon={<BookOpenText size={18} />} label="Knowledge Base" to="/knowledgebase" />
           <NavItem icon={<Phone size={18} />} label="My numbers" to="/mynumbers" />
           <NavItem icon={<Building2 size={18} />} label="Batches" to="/batches" />
           <NavItem icon={<History size={18} />} label="Call History" to="/callhistory" />
