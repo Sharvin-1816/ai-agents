@@ -30,7 +30,13 @@ const faqs = [
 
 const FAQ = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0e0e0e] to-black text-white px-4 py-20">
+    <div 
+        className="min-h-screen text-white px-4 sm:px-6 py-16 overflow-x-hidden mt-16"
+        style={{
+          backgroundColor: '#000000',
+          backgroundImage: `radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.3) 0%, rgba(147, 51, 234, 0.15) 25%, rgba(147, 51, 234, 0.05) 40%, transparent 60%)`
+        }}
+      >
       <div className="max-w-4xl mx-auto">
         <h1 className="text-center text-4xl md:text-5xl font-bold text-purple-500 mb-12">
           Frequently Asked Questions
@@ -40,7 +46,7 @@ const FAQ = () => {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-[#1a1a1a] border border-purple-600 rounded-2xl p-6 transition hover:scale-[1.02] duration-200"
+              className="bg-[#00000000] border border-gray-600 rounded-2xl p-6 transition hover:scale-[1.02] duration-200"
             >
               <h3 className="text-lg md:text-xl font-semibold text-purple-400">
                 {faq.question}

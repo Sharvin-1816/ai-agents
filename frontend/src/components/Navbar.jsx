@@ -33,7 +33,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed w-full bg-[#0e0e0e] z-50 text-white px-6 lg:px-16 py-4 shadow-md">
+    <nav className="fixed w-full bg-transparent backdrop-blur-md z-50 text-white px-6 lg:px-16 py-4 shadow-lg border-b border-white/10">
   <div className="max-w-7xl mx-auto flex items-center justify-between">
     {/* Logo */}
     <Link
@@ -41,7 +41,7 @@ const Navbar = () => {
   className="flex items-center gap-2 text-purple-500 text-xl md:text-2xl font-extrabold"
 >
   <img
-    src="/logo.jpg"
+    src="/logo-trans.png"
     alt="TechfluxAI Logo"
     className="h-6 w-6 md:h-8 md:w-8 object-contain rounded-full"
   />
@@ -50,7 +50,7 @@ const Navbar = () => {
 
     {/* Nav Links - Centered */}
     <div className="hidden md:flex items-center gap-8 text-sm md:text-base">
-  {["Home", "About", "FAQ"].map((text, idx) => (
+  {["Home", "About", "FAQ", "Dashboard"].map((text, idx) => (
     <Link
       key={idx}
       to={text === "Home" ? "/" : `/${text.toLowerCase()}`}
@@ -100,7 +100,7 @@ const Navbar = () => {
 
   {/* Mobile Dropdown */}
   {menuOpen && (
-    <div className="md:hidden mt-4 space-y-3 bg-[#121212] p-4 rounded-lg shadow-lg">
+    <div className="md:hidden mt-4 space-y-3 bg-black/80 backdrop-blur-md p-4 rounded-lg shadow-lg border border-white/10">
       {["Home", "About", "FAQ"].map((item) => (
         <Link
           key={item}
