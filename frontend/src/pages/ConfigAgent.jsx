@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import React from "react"
-import { Link } from "react-router-dom"
-import MetricCard from "../components/metric-card"
+import React from "react";
+import { Link } from "react-router-dom";
+import MetricCard from "../components/metric-card";
 import {
   Gauge,
   PlusSquare,
@@ -20,17 +20,17 @@ import {
   DollarSign,
   Star,
   CheckCircle2,
-} from "lucide-react"
+} from "lucide-react";
 
 // AgentCard Component
-function AgentCard({ 
-  name = "Sam", 
+function AgentCard({
+  name = "Sam",
   title = "Candidate Screener",
   description = "Matches JD requirements with each CV and conducts tailored screening interviews",
   status = "Ready for deployment",
   category = "Screening",
   avatar = "/api/placeholder/120/120",
-  isOnline = true 
+  isOnline = true,
 }) {
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 max-w-sm">
@@ -42,7 +42,9 @@ function AgentCard({
             alt={`${name} avatar`}
             className="w-24 h-24 rounded-full object-cover"
             onError={(e) => {
-              e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=6366f1&color=ffffff&size=96`
+              e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                name
+              )}&background=6366f1&color=ffffff&size=96`;
             }}
           />
           {isOnline && (
@@ -74,7 +76,7 @@ function AgentCard({
             {status}
           </span>
         </div>
-        
+
         <div className="flex items-center justify-between">
           <span className="text-sm font-medium text-gray-700">Category</span>
           <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
@@ -86,12 +88,24 @@ function AgentCard({
       {/* Action Button */}
       <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2">
         Select & customize
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-white">
-          <path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          className="text-white"
+        >
+          <path
+            d="M9 18l6-6-6-6"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
     </div>
-  )
+  );
 }
 
 function Chip({ children, icon }) {
@@ -108,26 +122,27 @@ function Chip({ children, icon }) {
       ) : null}
       {children}
     </span>
-  )
+  );
 }
 
 function NavItem({ icon, label, active, to }) {
-    const base =
-      "flex items-center gap-2 px-3 py-2 rounded-xl cursor-pointer hover:bg-zinc-900 text-zinc-400"
-    const activeCls =
-      "bg-violet-500/10 border border-zinc-800 text-zinc-100"
-  
-    return (
-      <Link
-        to={to}
-        className={`${base} ${active ? activeCls : "border border-transparent"}`}
-        aria-label={label}
-      >
-        <span aria-hidden className="grid place-items-center">{icon}</span>
-        <span className="hidden md:inline">{label}</span>
-      </Link>
-    )
-  }
+  const base =
+    "flex items-center gap-2 px-3 py-2 rounded-xl cursor-pointer hover:bg-zinc-900 text-zinc-400";
+  const activeCls = "bg-violet-500/10 border border-zinc-800 text-zinc-100";
+
+  return (
+    <Link
+      to={to}
+      className={`${base} ${active ? activeCls : "border border-transparent"}`}
+      aria-label={label}
+    >
+      <span aria-hidden className="grid place-items-center">
+        {icon}
+      </span>
+      <span className="hidden md:inline">{label}</span>
+    </Link>
+  );
+}
 
 export default function ConfigAgent() {
   return (
@@ -137,34 +152,73 @@ export default function ConfigAgent() {
         className="sticky top-0 h-svh w-16 md:w-60 border-r border-zinc-800 bg-zinc-950 p-2 md:p-3 flex flex-col gap-2"
         aria-label="Sidebar navigation"
       >
-        <div 
-        onClick={() => window.location.href = '/'}
-        className="flex items-center gap-2 px-2 py-2 font-semibold rounded-md justify-center md:justify-start hover:bg-zinc-800 transition-colors cursor-pointer"
-        >
-        <img 
-            src="/public/logo-trans.png" 
-            alt="TechFlux.ai logo" 
-            className="w-[18px] h-[18px]"
-        />
-        <span className="hidden md:inline">TechFlux.ai</span>
+        <div className="flex items-center gap-2 px-2 py-2 font-semibold rounded-md justify-center md:justify-start hover:bg-zinc-800 transition-colors cursor-pointer">
+          <Link to="/" className="flex items-center gap-2">
+            <img
+              src="/public/logo-trans.png"
+              alt="TechFlux.ai logo"
+              className="w-[18px] h-[18px]"
+            />
+            <span className="hidden md:inline">TechFlux.ai</span>
+          </Link>
         </div>
         <nav className="flex flex-col gap-1 mt-1">
-        <NavItem icon={<Gauge size={18} />} label="Dashboard" to="/dashboard"/>
-        <NavItem icon={<PlusSquare size={18} />} label="Create agents" to="/createagent" />
-          <NavItem icon={<Settings size={18} />} label="Configure Agent" to="/configagent" active/>
-          <NavItem icon={<BookOpenText size={18} />} label="Knowledge Base" to="/knowledgebase"/>
-          <NavItem icon={<Phone size={18} />} label="My numbers" to="/mynumbers" />
-          <NavItem icon={<Building2 size={18} />} label="Batches" to="/batches" />
-          <NavItem icon={<History size={18} />} label="Call History" to="/callhistory" />
-          <NavItem icon={<Workflow size={18} />} label="Workflows" to="/workflows"/>
-          <NavItem icon={<Megaphone size={18} />} label="Campaigns" to="/campaigns" />
+          <NavItem
+            icon={<Gauge size={18} />}
+            label="Dashboard"
+            to="/dashboard"
+          />
+          <NavItem
+            icon={<PlusSquare size={18} />}
+            label="Create agents"
+            to="/createagent"
+          />
+          <NavItem
+            icon={<Settings size={18} />}
+            label="Configure Agent"
+            to="/configagent"
+            active
+          />
+          <NavItem
+            icon={<BookOpenText size={18} />}
+            label="Knowledge Base"
+            to="/knowledgebase"
+          />
+          <NavItem
+            icon={<Phone size={18} />}
+            label="My numbers"
+            to="/mynumbers"
+          />
+          <NavItem
+            icon={<Building2 size={18} />}
+            label="Batches"
+            to="/batches"
+          />
+          <NavItem
+            icon={<History size={18} />}
+            label="Call History"
+            to="/callhistory"
+          />
+          <NavItem
+            icon={<Workflow size={18} />}
+            label="Workflows"
+            to="/workflows"
+          />
+          <NavItem
+            icon={<Megaphone size={18} />}
+            label="Campaigns"
+            to="/campaigns"
+          />
         </nav>
       </aside>
 
       {/* Content */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top bar */}
-        <header className="flex items-center gap-3 p-3 border-b border-zinc-800" aria-label="Top bar">
+        <header
+          className="flex items-center gap-3 p-3 border-b border-zinc-800"
+          aria-label="Top bar"
+        >
           <div className="flex-1 rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400 text-sm px-3 py-2">
             Try TechFlux Pilots: Ready Agent + Analytics + Free Phone Number
           </div>
@@ -177,7 +231,10 @@ export default function ConfigAgent() {
         </header>
 
         {/* Toolbar chips */}
-        <div className="flex items-center gap-3 px-4 pt-4 flex-wrap" aria-label="Toolbar actions">
+        <div
+          className="flex items-center gap-3 px-4 pt-4 flex-wrap"
+          aria-label="Toolbar actions"
+        >
           <Chip icon={<Wallet size={16} />}>Available balance: $5.00</Chip>
           <Chip icon={<Plus size={16} />}>Add more funds</Chip>
           <Chip icon={<PlayCircle size={16} />}>See demo</Chip>
@@ -191,19 +248,28 @@ export default function ConfigAgent() {
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-white">Your Agents</h2>
               <button className="inline-flex items-center gap-2 px-3 py-2 text-sm text-zinc-400 hover:text-white border border-zinc-700 rounded-lg hover:bg-zinc-800">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="7,10 12,15 17,10"/>
-                  <line x1="12" y1="15" x2="12" y2="3"/>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7,10 12,15 17,10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
                 Import
               </button>
             </div>
-            
+
             {/* New Agent Item */}
             <div className="bg-zinc-900 rounded-lg p-3 mb-2 flex items-center justify-between">
               <span className="text-white font-medium">New Agent</span>
-              <span className="px-2 py-1 text-xs bg-zinc-800 text-zinc-400 rounded">draft</span>
+              <span className="px-2 py-1 text-xs bg-zinc-800 text-zinc-400 rounded">
+                draft
+              </span>
             </div>
           </div>
 
@@ -211,12 +277,48 @@ export default function ConfigAgent() {
           <div className="flex-1 flex flex-col items-center justify-center p-8">
             {/* Robot Icon */}
             <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mb-8">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" className="text-purple-600">
-                <rect x="3" y="11" width="18" height="10" rx="2" stroke="currentColor" strokeWidth="2"/>
-                <circle cx="12" cy="5" r="2" stroke="currentColor" strokeWidth="2"/>
-                <path d="m12 7v4" stroke="currentColor" strokeWidth="2"/>
-                <line x1="8" y1="16" x2="8" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                <line x1="16" y1="16" x2="16" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                className="text-purple-600"
+              >
+                <rect
+                  x="3"
+                  y="11"
+                  width="18"
+                  height="10"
+                  rx="2"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <circle
+                  cx="12"
+                  cy="5"
+                  r="2"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <path d="m12 7v4" stroke="currentColor" strokeWidth="2" />
+                <line
+                  x1="8"
+                  y1="16"
+                  x2="8"
+                  y2="16"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+                <line
+                  x1="16"
+                  y1="16"
+                  x2="16"
+                  y2="16"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
               </svg>
             </div>
 
@@ -227,30 +329,44 @@ export default function ConfigAgent() {
 
             {/* Description */}
             <p className="text-zinc-400 text-center max-w-md mb-8 leading-relaxed">
-              You need to create an agent before you can configure it. Get started by creating your first AI agent.
+              You need to create an agent before you can configure it. Get
+              started by creating your first AI agent.
             </p>
 
             {/* CTA Button */}
             <button className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-500 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="12" y1="5" x2="12" y2="19"/>
-                <line x1="5" y1="12" x2="19" y2="12"/>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
               </svg>
               Create Your First Agent
             </button>
           </div>
         </div>
-        
       </div>
     </div>
-  )
+  );
 }
 
 function TargetIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden focusable="false">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden
+      focusable="false"
+    >
       <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />
       <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5" />
     </svg>
-  )
+  );
 }

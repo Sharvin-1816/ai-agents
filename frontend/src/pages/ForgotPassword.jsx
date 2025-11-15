@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -14,7 +14,10 @@ const ForgotPassword = () => {
     setError("");
 
     try {
-      const res = await axios.post("https://ai-agents-backend-7u93.onrender.com/auth/forgot-password", { email });
+      const res = await axios.post(
+        "http://localhost:3000/auth/forgot-password",
+        { email }
+      );
       setMessage(res.data.message);
     } catch (err) {
       setError(err.response?.data?.message || "Something went wrong");
@@ -24,7 +27,9 @@ const ForgotPassword = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f011a] via-[#1f0030] to-[#0f011a] text-white px-4">
       <div className="bg-[#121212] p-8 rounded-2xl shadow-2xl w-full max-w-md border border-purple-600">
-        <h2 className="text-3xl font-bold text-purple-500 text-center mb-6">Reset Your Password</h2>
+        <h2 className="text-3xl font-bold text-purple-500 text-center mb-6">
+          Reset Your Password
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-5">
           <input
             type="email"
@@ -42,10 +47,14 @@ const ForgotPassword = () => {
             Send Reset Link
           </button>
         </form>
-        {message && <p className="text-green-500 mt-4 text-center">{message}</p>}
+        {message && (
+          <p className="text-green-500 mt-4 text-center">{message}</p>
+        )}
         {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
         <div className="text-center mt-4 text-sm text-gray-400">
-          <Link to="/login" className="text-purple-400 hover:underline">Back to login</Link>
+          <Link to="/login" className="text-purple-400 hover:underline">
+            Back to login
+          </Link>
         </div>
       </div>
     </div>

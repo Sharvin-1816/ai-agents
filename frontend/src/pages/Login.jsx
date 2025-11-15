@@ -1,12 +1,17 @@
-import React from 'react'
-import { useState } from "react";
+import React from "react";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { AuthContext } from "../context/authContext";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { fetchUser } = useContext(AuthContext);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
@@ -14,71 +19,89 @@ const Login = () => {
     setError("");
 
     try {
-      // Placeholder for login logic
-      console.log("Login attempt with:", formData);
-      // const res = await axios.post("https://ai-agents-backend-7u93.onrender.com/auth/login", formData);
-      // localStorage.setItem("token", res.data.token);
-      // await fetchUser();
-      // navigate("/dashboard");
+      const res = await axios.post(
+        "http://localhost:3000/auth/login",
+        formData
+      );
+      localStorage.setItem("token", res.data.token);
+      await fetchUser();
+      navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     }
   };
 
   const handleForgotPassword = () => {
-    console.log("Navigate to forgot password");
+    navigate("/forgot-password");
   };
 
   const handleSignup = () => {
-    console.log("Navigate to signup");
+    navigate("/signup");
   };
 
   return (
-    <div 
+    <div
       className="min-h-screen flex items-center justify-center text-white px-4"
       style={{
-        backgroundColor: '#000000',
-        backgroundImage: `radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.3) 0%, rgba(147, 51, 234, 0.15) 25%, rgba(147, 51, 234, 0.05) 40%, transparent 60%)`
+        backgroundColor: "#000000",
+        backgroundImage: `radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.3) 0%, rgba(147, 51, 234, 0.15) 25%, rgba(147, 51, 234, 0.05) 40%, transparent 60%)`,
       }}
     >
       {/* Concentric Circles Overlay */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           {/* Circle 1 - Innermost */}
-          <div className="absolute w-96 h-96 border border-purple-400/15 rounded-full" style={{
-            animation: 'pulse 4s ease-in-out infinite',
-            transform: 'translate(-50%, -50%)'
-          }} />
-          
+          <div
+            className="absolute w-96 h-96 border border-purple-400/15 rounded-full"
+            style={{
+              animation: "pulse 4s ease-in-out infinite",
+              transform: "translate(-50%, -50%)",
+            }}
+          />
+
           {/* Circle 2 */}
-          <div className="absolute w-[600px] h-[600px] border border-purple-400/10 rounded-full" style={{
-            animation: 'pulse 6s ease-in-out infinite',
-            transform: 'translate(-50%, -50%)'
-          }} />
-          
+          <div
+            className="absolute w-[600px] h-[600px] border border-purple-400/10 rounded-full"
+            style={{
+              animation: "pulse 6s ease-in-out infinite",
+              transform: "translate(-50%, -50%)",
+            }}
+          />
+
           {/* Circle 3 */}
-          <div className="absolute w-[900px] h-[900px] border border-purple-400/8 rounded-full" style={{
-            animation: 'pulse 8s ease-in-out infinite',
-            transform: 'translate(-50%, -50%)'
-          }} />
-          
+          <div
+            className="absolute w-[900px] h-[900px] border border-purple-400/8 rounded-full"
+            style={{
+              animation: "pulse 8s ease-in-out infinite",
+              transform: "translate(-50%, -50%)",
+            }}
+          />
+
           {/* Circle 4 */}
-          <div className="absolute w-[1200px] h-[1200px] border border-purple-400/6 rounded-full" style={{
-            animation: 'pulse 10s ease-in-out infinite',
-            transform: 'translate(-50%, -50%)'
-          }} />
-          
+          <div
+            className="absolute w-[1200px] h-[1200px] border border-purple-400/6 rounded-full"
+            style={{
+              animation: "pulse 10s ease-in-out infinite",
+              transform: "translate(-50%, -50%)",
+            }}
+          />
+
           {/* Circle 5 - Outermost */}
-          <div className="absolute w-[1500px] h-[1500px] border border-purple-400/4 rounded-full" style={{
-            animation: 'pulse 12s ease-in-out infinite',
-            transform: 'translate(-50%, -50%)'
-          }} />
+          <div
+            className="absolute w-[1500px] h-[1500px] border border-purple-400/4 rounded-full"
+            style={{
+              animation: "pulse 12s ease-in-out infinite",
+              transform: "translate(-50%, -50%)",
+            }}
+          />
         </div>
       </div>
 
       {/* Login Card */}
       <div className="relative z-10 bg-black/20 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-full max-w-md border border-purple-600/30">
-        <h2 className="text-3xl font-bold text-purple-400 text-center mb-6">Welcome Back</h2>
+        <h2 className="text-3xl font-bold text-purple-400 text-center mb-6">
+          Welcome Back
+        </h2>
         <div className="space-y-5">
           <input
             name="email"
@@ -107,7 +130,7 @@ const Login = () => {
           </button>
         </div>
         <div className="text-center mt-4 text-sm text-gray-400">
-          <button 
+          <button
             onClick={handleForgotPassword}
             className="text-purple-400 hover:underline hover:text-purple-300 transition"
           >
@@ -116,7 +139,7 @@ const Login = () => {
         </div>
         <p className="text-gray-400 mt-4 text-center">
           Don't have an account?{" "}
-          <button 
+          <button
             onClick={handleSignup}
             className="text-purple-400 hover:underline hover:text-purple-300 transition"
           >
@@ -127,7 +150,8 @@ const Login = () => {
 
       <style jsx>{`
         @keyframes pulse {
-          0%, 100% {
+          0%,
+          100% {
             opacity: 0.3;
             transform: translate(-50%, -50%) scale(1);
           }

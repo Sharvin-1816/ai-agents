@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Gauge,
   PlusSquare,
@@ -21,7 +21,7 @@ import {
   CheckCircle2,
   Search,
   RefreshCw,
-} from "lucide-react"
+} from "lucide-react";
 
 function Chip({ children, icon }) {
   return (
@@ -37,29 +37,30 @@ function Chip({ children, icon }) {
       ) : null}
       {children}
     </span>
-  )
+  );
 }
 
 function NavItem({ icon, label, active, to }) {
-    const base =
-      "flex items-center gap-2 px-3 py-2 rounded-xl cursor-pointer hover:bg-zinc-900 text-zinc-400"
-    const activeCls =
-      "bg-violet-500/10 border border-zinc-800 text-zinc-100"
-  
-    return (
-      <Link
-        to={to}
-        className={`${base} ${active ? activeCls : "border border-transparent"}`}
-        aria-label={label}
-      >
-        <span aria-hidden className="grid place-items-center">{icon}</span>
-        <span className="hidden md:inline">{label}</span>
-      </Link>
-    )
+  const base =
+    "flex items-center gap-2 px-3 py-2 rounded-xl cursor-pointer hover:bg-zinc-900 text-zinc-400";
+  const activeCls = "bg-violet-500/10 border border-zinc-800 text-zinc-100";
+
+  return (
+    <Link
+      to={to}
+      className={`${base} ${active ? activeCls : "border border-transparent"}`}
+      aria-label={label}
+    >
+      <span aria-hidden className="grid place-items-center">
+        {icon}
+      </span>
+      <span className="hidden md:inline">{label}</span>
+    </Link>
+  );
 }
 
 export default function CampaignsPage() {
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <div className="min-h-svh bg-black text-zinc-100 flex">
@@ -68,34 +69,65 @@ export default function CampaignsPage() {
         className="sticky top-0 h-svh w-16 md:w-60 border-r border-zinc-800 bg-zinc-950 p-2 md:p-3 flex flex-col gap-2"
         aria-label="Sidebar navigation"
       >
-        <div 
-        onClick={() => window.location.href = '/'}
-        className="flex items-center gap-2 px-2 py-2 font-semibold rounded-md justify-center md:justify-start hover:bg-zinc-800 transition-colors cursor-pointer"
-        >
-        <img 
-            src="/public/logo-trans.png" 
-            alt="TechFlux.ai logo" 
-            className="w-[18px] h-[18px]"
-        />
-        <span className="hidden md:inline">TechFlux.ai</span>
+        <div className="flex items-center gap-2 px-2 py-2 font-semibold rounded-md justify-center md:justify-start hover:bg-zinc-800 transition-colors cursor-pointer">
+          <Link to="/" className="flex items-center gap-2">
+            <img
+              src="/public/logo-trans.png"
+              alt="TechFlux.ai logo"
+              className="w-[18px] h-[18px]"
+            />
+            <span className="hidden md:inline">TechFlux.ai</span>
+          </Link>
         </div>
         <nav className="flex flex-col gap-1 mt-1">
-        <NavItem icon={<Gauge size={18} />} label="Dashboard" to="/dashboard"/>
-        <NavItem icon={<PlusSquare size={18} />} label="Create agents" to="/createagent" />
+          <NavItem
+            icon={<Gauge size={18} />}
+            label="Dashboard"
+            to="/dashboard"
+          />
+          <NavItem
+            icon={<PlusSquare size={18} />}
+            label="Create agents"
+            to="/createagent"
+          />
           {/* <NavItem icon={<Settings size={18} />} label="Configure Agent" to="/configagent"/> */}
-          <NavItem icon={<BookOpenText size={18} />} label="Knowledge Base" to="/knowledgebase" />
-          <NavItem icon={<Phone size={18} />} label="My numbers" to="/mynumbers" />
-          <NavItem icon={<Building2 size={18} />} label="Batches" to="/batches" />
-          <NavItem icon={<History size={18} />} label="Call History" to="/callhistory" />
+          <NavItem
+            icon={<BookOpenText size={18} />}
+            label="Knowledge Base"
+            to="/knowledgebase"
+          />
+          <NavItem
+            icon={<Phone size={18} />}
+            label="My numbers"
+            to="/mynumbers"
+          />
+          <NavItem
+            icon={<Building2 size={18} />}
+            label="Batches"
+            to="/batches"
+          />
+          <NavItem
+            icon={<History size={18} />}
+            label="Call History"
+            to="/callhistory"
+          />
           {/* <NavItem icon={<Workflow size={18} />} label="Workflows" to="/workflows"/> */}
-          <NavItem icon={<Megaphone size={18} />} label="Campaigns" to="/campaigns" active/>
+          <NavItem
+            icon={<Megaphone size={18} />}
+            label="Campaigns"
+            to="/campaigns"
+            active
+          />
         </nav>
       </aside>
 
       {/* Content */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top bar */}
-        <header className="flex items-center gap-3 p-3 border-b border-zinc-800" aria-label="Top bar">
+        <header
+          className="flex items-center gap-3 p-3 border-b border-zinc-800"
+          aria-label="Top bar"
+        >
           <div className="flex-1 rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400 text-sm px-3 py-2">
             Try TechFlux Pilots: Ready Agent + Analytics + Free Phone Number
           </div>
@@ -115,11 +147,9 @@ export default function CampaignsPage() {
               <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
                 Campaigns
               </h1>
-              <p className="text-zinc-400">
-                Create and manage your campaigns
-              </p>
+              <p className="text-zinc-400">Create and manage your campaigns</p>
             </div>
-            
+
             {/* Top Right Actions */}
             <div className="flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-2 text-zinc-400 text-sm">
@@ -132,16 +162,30 @@ export default function CampaignsPage() {
               </button>
               <button className="inline-flex items-center gap-2 px-3 py-2 text-sm text-zinc-400 hover:text-white transition-colors">
                 See demo
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M9 18l6-6-6-6"/>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M9 18l6-6-6-6" />
                 </svg>
               </button>
               <button className="inline-flex items-center gap-2 px-3 py-2 text-sm text-zinc-400 hover:text-white transition-colors">
                 Docs
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15,3 21,3 21,9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15,3 21,3 21,9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
                 </svg>
               </button>
             </div>
@@ -150,7 +194,10 @@ export default function CampaignsPage() {
           {/* Search and Actions Bar */}
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-500" size={16} />
+              <Search
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-500"
+                size={16}
+              />
               <input
                 type="text"
                 placeholder="Search campaigns..."
@@ -173,7 +220,8 @@ export default function CampaignsPage() {
                   Create New Campaign
                 </h3>
                 <p className="text-zinc-400">
-                  Click to create a new campaign and start reaching out to your candidates.
+                  Click to create a new campaign and start reaching out to your
+                  candidates.
                 </p>
               </div>
               <div className="ml-4 w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center group-hover:bg-violet-500 transition-colors">
@@ -192,7 +240,8 @@ export default function CampaignsPage() {
                 No campaigns yet
               </h3>
               <p className="text-zinc-400 mb-6 max-w-md mx-auto">
-                You haven't created any campaigns yet. Create your first campaign to start reaching out to candidates.
+                You haven't created any campaigns yet. Create your first
+                campaign to start reaching out to candidates.
               </p>
               <button className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-medium px-6 py-3 rounded-lg transition-colors">
                 <Plus size={16} />
@@ -203,5 +252,5 @@ export default function CampaignsPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

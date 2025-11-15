@@ -1,18 +1,21 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { useContext } from "react";
-import { AuthContext } from "../context/authContext" // adjust path if different
-
+import { AuthContext } from "../context/authContext"; // adjust path if different
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const [error, setError] = useState("");
   const { fetchUser } = useContext(AuthContext);
   const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
@@ -20,7 +23,10 @@ const Signup = () => {
     setError("");
 
     try {
-      const res = await axios.post("https://ai-agents-backend-7u93.onrender.com/auth/signup", formData);
+      const res = await axios.post(
+        "http://localhost:3000/auth/signup",
+        formData
+      );
       localStorage.setItem("token", res.data.token);
       await fetchUser();
       navigate("/dashboard");
@@ -32,7 +38,9 @@ const Signup = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f011a] via-[#1f0030] to-[#0f011a] text-white px-4">
       <div className="bg-[#121212] p-8 rounded-2xl shadow-2xl w-full max-w-md border border-purple-600">
-        <h2 className="text-3xl font-bold text-purple-500 text-center mb-6">Create Account</h2>
+        <h2 className="text-3xl font-bold text-purple-500 text-center mb-6">
+          Create Account
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-5">
           <input
             name="name"
@@ -71,7 +79,9 @@ const Signup = () => {
         </form>
         <p className="text-gray-400 mt-4 text-center">
           Already have an account?{" "}
-          <Link to="/login" className="text-purple-400 hover:underline">Log in</Link>
+          <Link to="/login" className="text-purple-400 hover:underline">
+            Log in
+          </Link>
         </p>
       </div>
     </div>

@@ -18,11 +18,11 @@ const signup = async(req,res)=>{
                 message:"User already exists"
             })
         }
-        const hashedPassword = await bcrypt.hashSync(password,10);
+        const hashedPassword = await bcrypt.hash(password,10);
         const newUser = new User({name,email,password:hashedPassword});
         await newUser.save();
         const token = generateToken(newUser._id);
-        res.status(201).json({token,newUser:{id:newUser._id,name:newUser.name,email:newUser.email},message:"Signup Successfull"});
+        res.status(201).json({token,user:{id:newUser._id,name:newUser.name,email:newUser.email},message:"Signup Successfull"});
 
     }catch(error){
         res.status(500).json({
@@ -50,7 +50,7 @@ const login = async(req,res)=>{
             })
         }
         const token = generateToken(user._id);
-        res.json({token,user:{id:user._id,name:user._name,email:user.email},message:"Login successfull"});
+        res.json({token,user:{id:user._id,name:user.name,email:user.email},message:"Login successfull"});
 
     }catch(error){
         res.status(500).json({
@@ -63,6 +63,10 @@ const login = async(req,res)=>{
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
   try {
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
+
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: 'User not found' });
 
@@ -78,7 +82,8 @@ const forgotPassword = async (req, res) => {
 
     res.json({ message: 'Reset email sent' });
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Forgot password error:', err);
+    res.status(500).json({ message: 'Server error', error: err.message });
   }
 };
 
@@ -87,6 +92,11 @@ const resetPassword = async (req, res) => {
   const { newPassword } = req.body;
 
   try {
+    // Validate input
+    if (!newPassword) {
+      return res.status(400).json({ message: 'New password is required' });
+    }
+
     const user = await User.findOne({
       resetToken: token,
       resetTokenExpiry: { $gt: Date.now() },
@@ -101,7 +111,8 @@ const resetPassword = async (req, res) => {
 
     res.json({ message: 'Password updated successfully' });
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Reset password error:', err);
+    res.status(500).json({ message: 'Server error', error: err.message });
   }
 };
 

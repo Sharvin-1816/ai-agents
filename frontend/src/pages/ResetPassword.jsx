@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 import { useState } from "react";
-import { useParams, useNavigate,Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 const ResetPassword = () => {
@@ -16,7 +16,10 @@ const ResetPassword = () => {
     setError("");
 
     try {
-      const res = await axios.post(`https://ai-agents-backend-7u93.onrender.com/auth/reset-password/${token}`, { newPassword });
+      const res = await axios.post(
+        `http://localhost:3000/auth/reset-password/${token}`,
+        { newPassword }
+      );
       setMessage(res.data.message);
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
@@ -27,7 +30,9 @@ const ResetPassword = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f011a] via-[#1f0030] to-[#0f011a] text-white px-4">
       <div className="bg-[#121212] p-8 rounded-2xl shadow-2xl w-full max-w-md border border-purple-600">
-        <h2 className="text-3xl font-bold text-purple-500 text-center mb-6">Set New Password</h2>
+        <h2 className="text-3xl font-bold text-purple-500 text-center mb-6">
+          Set New Password
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-5">
           <input
             type="password"
@@ -45,10 +50,14 @@ const ResetPassword = () => {
             Reset Password
           </button>
         </form>
-        {message && <p className="text-green-500 mt-4 text-center">{message}</p>}
+        {message && (
+          <p className="text-green-500 mt-4 text-center">{message}</p>
+        )}
         {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
         <div className="text-center mt-4 text-sm text-gray-400">
-          <Link to='/login' className="text-purple-400 hover:underline">Back to login</Link>
+          <Link to="/login" className="text-purple-400 hover:underline">
+            Back to login
+          </Link>
         </div>
       </div>
     </div>
