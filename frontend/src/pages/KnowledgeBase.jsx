@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 import {
   Gauge,
   PlusSquare,
@@ -211,16 +212,34 @@ function AddCollegeModal({ isOpen, onClose, onAdd }) {
 }
 
 export default function KnowledgeBase() {
+  const { user, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [colleges, setColleges] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [expandedCollege, setExpandedCollege] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true);
   const [stats, setStats] = useState({
     total_colleges: 0,
     total_documents: 0,
     total_storage_mb: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    } else {
+      setAuthLoading(false);
+    }
+  }, [navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/login");
+  };
 
   // Load colleges on component mount
   useEffect(() => {
@@ -333,6 +352,15 @@ export default function KnowledgeBase() {
         ))
   );
 
+  // Don't render page until auth is verified
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-violet-400 text-xl">Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-svh bg-black text-zinc-100 flex">
       {/* Sidebar */}
@@ -402,12 +430,27 @@ export default function KnowledgeBase() {
           <div className="flex-1 rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400 text-sm px-3 py-2">
             Try TechFlux Pilots: Ready Agent + Analytics + Free Phone Number
           </div>
-          <button
-            className="inline-flex items-center rounded-lg bg-violet-600 hover:bg-violet-500 text-black border border-violet-600 font-semibold px-3 py-2"
+          {user && (
+            <div className="flex items-center gap-3">
+              <span className="text-violet-400 font-semibold text-sm">
+                Welcome, {user.name}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="inline-flex items-center rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-100 border border-zinc-700 font-semibold px-3 py-2 text-sm"
+                aria-label="Logout"
+              >
+                Logout
+              </button>
+            </div>
+          )}
+          <Link
+            to="/book-demo"
+            className="inline-flex items-center rounded-lg bg-violet-600 hover:bg-violet-500 text-black border border-violet-600 font-semibold px-3 py-2 text-sm"
             aria-label="Book a call"
           >
             Book a call
-          </button>
+          </Link>
         </header>
 
         {/* Knowledge Base Content */}

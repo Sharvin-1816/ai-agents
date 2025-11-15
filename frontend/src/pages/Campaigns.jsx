@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 import {
   Gauge,
   PlusSquare,
@@ -60,7 +61,34 @@ function NavItem({ icon, label, active, to }) {
 }
 
 export default function CampaignsPage() {
+  const { user, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = React.useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    } else {
+      setLoading(false);
+    }
+  }, [navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+    navigate("/login");
+  };
+
+  // Don't render page until auth is verified
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-violet-400 text-xl">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-svh bg-black text-zinc-100 flex">
@@ -131,12 +159,27 @@ export default function CampaignsPage() {
           <div className="flex-1 rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400 text-sm px-3 py-2">
             Try TechFlux Pilots: Ready Agent + Analytics + Free Phone Number
           </div>
-          <button
-            className="inline-flex items-center rounded-lg bg-violet-600 hover:bg-violet-500 text-black border border-violet-600 font-semibold px-3 py-2"
+          {user && (
+            <div className="flex items-center gap-3">
+              <span className="text-violet-400 font-semibold text-sm">
+                Welcome, {user.name}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="inline-flex items-center rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-100 border border-zinc-700 font-semibold px-3 py-2 text-sm"
+                aria-label="Logout"
+              >
+                Logout
+              </button>
+            </div>
+          )}
+          <Link
+            to="/book-demo"
+            className="inline-flex items-center rounded-lg bg-violet-600 hover:bg-violet-500 text-black border border-violet-600 font-semibold px-3 py-2 text-sm"
             aria-label="Book a call"
           >
             Book a call
-          </button>
+          </Link>
         </header>
 
         {/* Main Content */}

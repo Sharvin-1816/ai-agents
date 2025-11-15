@@ -62,11 +62,14 @@ function NavItem({ icon, label, active, to }) {
 export default function Dashboard() {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/login");
+    } else {
+      setLoading(false);
     }
   }, [navigate]);
 
@@ -75,6 +78,15 @@ export default function Dashboard() {
     setUser(null);
     navigate("/login");
   };
+
+  // Don't render dashboard until auth is verified
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-violet-400 text-xl">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-svh bg-black text-zinc-100 flex">

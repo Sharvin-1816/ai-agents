@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from supabase import create_client, Client
 from datetime import datetime
+from dotenv import load_dotenv
 import time
 import random
 import string
@@ -11,12 +12,14 @@ from werkzeug.utils import secure_filename
 import base64
 import json
 
+load_dotenv()
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Supabase configuration
-SUPABASE_URL = "https://nabuejxkngokkksbdshy.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5hYnVlanhrbmdva2trc2Jkc2h5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcxNzkyODAsImV4cCI6MjA3Mjc1NTI4MH0.-Zj2AaY1nvcoWKN3NPSevCzacapYXA2M31p8i93zjGU"
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
 # Initialize Supabase client
 supabase: Client = None
