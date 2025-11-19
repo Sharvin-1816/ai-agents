@@ -5,6 +5,8 @@ const cors = require('cors');
 const connDb = require('./config/db');
 const authRoutes = require('./routes/authRoute');
 const demoRoutes = require('./routes/demoRoute');
+const excelUploadRoutes = require('./routes/excelRoute')
+
 dotenv.config();
 
 app.use(express.json());
@@ -21,3 +23,4 @@ app.get('/',(req,res)=>{
 })
 app.use('/auth',authRoutes);
 app.use('/api',demoRoutes);
+app.use('/api',excelUploadRoutes);

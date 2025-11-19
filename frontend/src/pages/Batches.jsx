@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import MetricCard from "../components/metric-card";
@@ -62,8 +62,8 @@ function NavItem({ icon, label, active, to }) {
 export default function Batches() {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [loading, setLoading] = React.useState(true);
-  const fileInputRef = React.useRef(null);
+  const [loading, setLoading] = useState(true);
+  const fileInputRef = useRef(null);
   const handleUploadFunctionality = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -84,7 +84,8 @@ export default function Batches() {
 
     const formData = new FormData();
     formData.append("file", file);
-    fetch("http://localhost:5000/api/upload-excel", {
+
+    fetch("http://localhost:3000/api/upload-excel", {
       method: "POST",
       body: formData,
     })
@@ -92,10 +93,15 @@ export default function Batches() {
       .then((data) => {
         console.log("Upload success:", data);
         alert("Batch uploaded successfully!");
+
+        // 🔥 VERY IMPORTANT
+        // allows uploading the SAME file again
+        e.target.value = "";
       })
       .catch((err) => {
         console.error(err);
         alert("Upload failed!");
+        e.target.value = ""; // reset on error as well
       });
   };
 
