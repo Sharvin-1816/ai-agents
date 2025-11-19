@@ -6,6 +6,8 @@ import time
 import random
 import string
 import os
+import pandas as pd
+
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -17,6 +19,7 @@ MONGODB_URI = "mongodb+srv://sharvinjoshi360_db_user:ImjRmsN7jaHECftz@techfluxai
 try:
     client = MongoClient(MONGODB_URI)
     db = client['TechfluxAI']
+    batch_contacts = db["BatchContacts"]  
     users_collection = db['Users']
     print("Connected to MongoDB successfully!")
 except Exception as e:
@@ -112,6 +115,60 @@ def get_user(user_id):
     except Exception as e:
         print(f"Error in get_user: {e}")
         return jsonify({"error": "Failed to fetch user"}), 500
+
+@app.route("/api/upload-excel", methods=["POST"])
+def upload_excel():
+    try:
+        # 1) Check file exists
+        if "file" not in request.files:
+            return jsonify({"status": "error", "message": "No file uploaded"}), 400
+
+        file = request.files["file"]
+
+        # 2) Read Excel into Pandas
+        try:
+            df = pd.read_excel(file)
+        except Exception as e:
+            return jsonify({"status": "error", "message": "Invalid Excel file", "error": str(e)}), 400
+
+        # 3) Expected columns
+        expected_cols = ["Name", "mobile", "email", "state", "city"]
+        missing_cols = [col for col in expected_cols if col not in df.columns]
+
+        if missing_cols:
+            return jsonify({
+                "status": "error",
+                "message": f"Missing columns: {missing_cols}"
+            }), 400
+
+        # 4) Format rows
+        formatted_data = []
+        for _, row in df.iterrows():
+            formatted_data.append({
+                "name": str(row.get("Name", "")),
+                "mobile": str(row.get("mobile", "")),
+                "email": str(row.get("email", "")),
+                "state": str(row.get("state", "")),
+                "city": str(row.get("city", ""))
+            })
+
+        # 5) Insert into MongoDB
+        if formatted_data:
+            batch_contacts.insert_many(formatted_data)
+
+        return jsonify({
+            "status": "success",
+            "inserted": len(formatted_data),
+            "message": "Excel uploaded & stored successfully"
+        }), 200
+
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": "Internal server error",
+            "error": str(e)
+        }), 500
+        
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

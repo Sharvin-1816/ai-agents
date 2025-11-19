@@ -63,6 +63,41 @@ export default function Batches() {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(true);
+  const fileInputRef = React.useRef(null);
+  const handleUploadFunctionality = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (
+      file.type !==
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" &&
+      file.type !== "application/vnd.ms-excel"
+    ) {
+      alert("Please upload a valid Excel file (.xlsx or .xls)");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+    fetch("http://localhost:5000/api/upload-excel", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Upload success:", data);
+        alert("Batch uploaded successfully!");
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Upload failed!");
+      });
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -295,10 +330,21 @@ export default function Batches() {
                   link
                 </a>
               </div>
-              <button className="bg-purple-600 hover:bg-purple-500 text-white font-medium px-4 py-2 rounded-lg transition-colors text-sm">
+              <button
+                onClick={handleUploadFunctionality}
+                className="bg-purple-600 hover:bg-purple-500 text-white font-medium px-4 py-2 rounded-lg transition-colors text-sm"
+              >
                 <span className="hidden sm:inline">Upload Batch</span>
                 <span className="sm:hidden">Upload</span>
               </button>
+              {/* Hidden file input */}
+              <input
+                type="file"
+                accept=".xlsx,.xls"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                className="hidden"
+              />
             </div>
           </div>
 
